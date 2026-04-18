@@ -1,0 +1,38 @@
+services:
+ nexus:
+  image: sonatype/nexus3
+  ports:
+   - "8081:8081"
+   - "8083:8083"
+  volumes:
+   - nexus_data:/nexus-data
+  networks:
+   - cicd_network
+  user_api:
+   image: user-api:latest
+   networks:
+    - cicd_network
+	
+  postgres:
+   image: postgres:15-alpine
+   container_name: redmine-postgres-db
+   restart: unless-stopped
+   environment:
+    POSTGRES_PASSWORD: mysecretpassword
+    POSTGRES_DB: otus_users_db
+    POSTGRES_USER: postgres
+   volumes:
+    - ./backup/postgres:/backup
+    - ./init/postgres:/docker-entrypoint-initdb.d
+   ports:
+    - "5432:5432"
+   networks:
+    - cicd_network
+volumes:
+ nexus_data:
+  external: true
+  name: nexus_data
+  
+networks:
+ cicd_network:
+  driver: bridge
