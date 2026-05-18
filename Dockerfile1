@@ -1,0 +1,11 @@
+FROM redmine:5.0
+USER root
+RUN apt-get update && \
+	apt-get install -y --no-install-recommends \
+	vim \
+	curl \
+	&& rm -rf /var/lib/apt/lists/*
+COPY plugins /usr/src/redmine/plugins
+RUN chown -R redmine:redmine /usr/src/redmine
+USER redmine
+COPY configuration.yml /usr/src/redmine/config/configuration.yml.example

@@ -1,0 +1,57 @@
+version: '3.8'
+
+networks:
+ redmine-network:
+  driver: bridge
+  name: redmine-network
+
+volumes:
+ # PostgerSQL volumes
+ postgres_data:
+  name: redmine_postgres_data
+  driver: local
+ redmine_postgres_files:
+  name: redmine_postgres_files
+  driver: local
+
+services:
+ # PostgreSQL Database
+ postgres:
+  image: postgres:15-alpine
+  container_name: redmine-postgres-db
+  restart: unless-stopped
+  environment:
+   POSTGRES_PASSWORD: ${POSTGRES_ROOT_PASSWORD}
+   POSTGRES_DB: ${POSTGRES_DATABASE}
+   POSTGRES_USER: ${POSTGRES_USER}
+  volumes:
+   - postgres_data:/var/lib/postgresql/data
+   - ./backup/postgres:/backup
+   - ./init/postgres:/docker-entrypoint-initdb.d
+  networks:
+   - redmine-network
+  ports:
+   - "${POSTGRES_PORT:-5432}:5432"
+
+ # Redmine with PostgreSQL
+ redmine-postgres:
+  image: redmine:5.0-alpine
+  container_name: redmine-postgres-app
+  restart: unless-stopped
+  environment:
+   REDMINE_DB_POSTGRES: postgres
+   REDMINE_DB_DATABASE: ${POSTGRES_DATABASE}
+   REDMINE_DB_USERNAME: ${POSTGRES_USER}
+   REDMINE_DB_PASSWORD: ${POSTGRES_PASSWORD}
+   REDMINE_SECRET_KEY_BASE: ${REDMINE_SECRET_POSTGRES}
+   REDMINE_PLUGINS_MIGRATE: "true"
+   TZ: "Europe/Moscow"
+  volumes:
+   - redmine_postgres_files:/usr/src/redmine/files
+   - ./plugins:/usr/src/redmine/plugins
+   - ./themes:/usr/src/redmine/public/themes
+   - ./backup/redmine-postgres:/backup
+  networks:
+   - redmine-network
+  ports:
+   - "${REDMINE_POSTGRES_PORT:-3001}:3000"
