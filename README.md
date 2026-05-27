@@ -7,6 +7,10 @@
 
 Ниже код работы:
 ```
+git clone git@otusteam.gitlab.yandexcloud.net:devops/devops-2026-01/s68/users-api.git
+git clone git@otusteam.gitlab.yandexcloud.net:devops/devops-2026-01/s68/documents-api.git
+git clone git@otusteam.gitlab.yandexcloud.net:devops/devops-2026-01/s68/dashboard-ui.git
+
 u24@Ubuntu22:~/yc-docker-compose$ ll
 total 16
 drwxrwxr-x  2 u24 u24 4096 Apr 18 10:13 ./
