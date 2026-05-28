@@ -1,0 +1,84 @@
+services:
+
+  pg_users_api:
+    image: postgres:18
+    ports:
+      - "5432:5432"   
+    environment:
+      POSTGRES_USER: "$POSTGRES_USER"
+      POSTGRES_PASSWORD: "$POSTGRES_PASSWORD"
+      POSTGRES_DB: "otus_users_db"
+    volumes:
+      - ./pg_user_api_data:/var/lib/postgresql
+    networks:
+      - net_users_api
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+
+  pg_documents_api:
+    image: postgres:18
+    ports:
+      - "5433:5432"   
+    environment:
+      POSTGRES_USER: "$POSTGRES_USER"
+      POSTGRES_PASSWORD: "$POSTGRES_PASSWORD"
+      POSTGRES_DB: "otus_documents_db"
+    volumes:
+      - ./pg_documents_api:/var/lib/postgresql
+    networks:
+      - net_documents_api
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+
+  users_api:
+    image: slako68/otus:users_api
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_USERNAME: "$POSTGRES_USER"
+      DATABASE_PASSWORD: "$POSTGRES_PASSWORD"
+    networks:
+      - net_users_api
+      - net_dashboard_ui
+    depends_on:
+      pg_users_api:
+        condition: service_healthy
+        restart: true
+
+  documents_api:
+    image: slako68/otus:documents_api
+    ports:
+      - "3002:3000"   
+    environment:
+      DATABASE_USERNAME: "$POSTGRES_USER"
+      DATABASE_PASSWORD: "$POSTGRES_PASSWORD"
+    networks:
+      - net_documents_api
+      - net_dashboard_ui
+    depends_on:
+      pg_documents_api:
+        condition: service_healthy
+        restart: true
+
+  dashboard_ui:
+    image: slako68/otus:dashboard_ui
+    ports:
+      - "3001:3000"
+    environment:
+      USERS_API_BASE_URL: "$USERS_API_BASE_URL"
+      DOCUMENTS_API_BASE_URL: "$DOCUMENTS_API_BASE_URL"
+    networks:
+      - net_dashboard_ui
+
+networks:
+  net_users_api:
+  net_documents_api:
+  net_dashboard_ui:
