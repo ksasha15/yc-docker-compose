@@ -39,7 +39,7 @@ services:
       timeout: 10s
 
   users_api:
-    image: slako68/otus:users_api
+    image: ksasha15/otus:users_api
     ports:
       - "3000:3000"
     environment:
@@ -54,7 +54,7 @@ services:
         restart: true
 
   documents_api:
-    image: slako68/otus:documents_api
+    image: ksasha15/otus:documents_api
     ports:
       - "3002:3000"   
     environment:
@@ -69,7 +69,7 @@ services:
         restart: true
 
   dashboard_ui:
-    image: slako68/otus:dashboard_ui
+    image: ksasha15/otus:dashboard_ui
     ports:
       - "3001:3000"
     environment:
