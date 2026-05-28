@@ -446,5 +446,42 @@ c60784f82b08: Layer already exists
 d71a4048a969: Layer already exists
 users_api: digest: sha256:24eb8128599d56093c11106e5f675936c56df214d2e336f514996dcf943b3208 size: 1837
 root@u26:~#
+root@u26:~/DevOps# ssh -l ubuntu 111.88.144.158
+The authenticity of host '111.88.144.158 (111.88.144.158)' can't be established.
+ED25519 key fingerprint is: SHA256:yBzXh2T/lRGG/QzF0iSzPMxJORaJRdPz3QB+kYx4wSo
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '111.88.144.158' (ED25519) to the list of known hosts.
+Welcome to Ubuntu 24.04.4 LTS (GNU/Linux 6.8.0-117-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Thu May 28 20:07:55 UTC 2026
+
+  System load:  0.4                Processes:             105
+  Usage of /:   11.4% of 18.72GB   Users logged in:       0
+  Memory usage: 10%                IPv4 address for eth0: 10.129.0.34
+  Swap usage:   0%
+
+
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+ubuntu@compute-vm-2-2-20-ssd-1779998418789:~$
 
 ```
