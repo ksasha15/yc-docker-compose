@@ -484,4 +484,19 @@ applicable law.
 
 ubuntu@compute-vm-2-2-20-ssd-1779998418789:~$
 
+root@compute-vm-2-2-20-ssd-1779998418789:~# docker-compose up -d
+Starting root_pg_users_api_1     ... done
+Starting root_dashboard_ui_1     ... done
+Starting root_pg_documents_api_1 ... done
+Starting root_documents_api_1    ... done
+Starting root_users_api_1        ... done
+root@compute-vm-2-2-20-ssd-1779998418789:~#
+root@compute-vm-2-2-20-ssd-1779998418789:~# docker ps
+CONTAINER ID   IMAGE                         COMMAND                  CREATED         STATUS                    PORTS                                         NAMES
+8c7e527eb125   ksasha15/otus:documents_api   "docker-entrypoint.s…"   7 minutes ago   Up 11 seconds             0.0.0.0:3002->3000/tcp, [::]:3002->3000/tcp   root_documents_api_1
+eb99799a5e7a   ksasha15/otus:users_api       "docker-entrypoint.s…"   7 minutes ago   Up 11 seconds             0.0.0.0:3000->3000/tcp, [::]:3000->3000/tcp   root_users_api_1
+464a20c3f5f0   postgres:18                   "docker-entrypoint.s…"   8 minutes ago   Up 17 seconds (healthy)   0.0.0.0:5433->5432/tcp, [::]:5433->5432/tcp   root_pg_documents_api_1
+360d8b811411   postgres:18                   "docker-entrypoint.s…"   8 minutes ago   Up 17 seconds (healthy)   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp   root_pg_users_api_1
+67fb7ec79f59   ksasha15/otus:dashboard_ui    "docker-entrypoint.s…"   8 minutes ago   Up 17 seconds             0.0.0.0:3001->3000/tcp, [::]:3001->3000/tcp   root_dashboard_ui_1
+root@compute-vm-2-2-20-ssd-1779998418789:~#
 ```
