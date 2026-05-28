@@ -401,4 +401,50 @@ b964309326ec   ksasha15/otus:dashboard_ui   "docker-entrypoint.s…"   45 second
 62d9edf062da   postgres:18                  "docker-entrypoint.s…"   28 minutes ago   Up 28 minutes   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp   pg_users_api
 root@u26:~/DevOps#
 
+root@u26:~# docker login -u ksasha15
+
+i Info → A Personal Access Token (PAT) can be used instead.
+         To create a PAT, visit https://app.docker.com/settings
+
+
+Password:
+
+WARNING! Your credentials are stored unencrypted in '/root/.docker/config.json'.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/go/credential-store/
+
+Login Succeeded
+root@u26:~#
+root@u26:~# docker push ksasha15/otus:dashboard_ui
+The push refers to repository [docker.io/ksasha15/otus]
+d9059661ce70: Mounted from library/node
+43384e29c3b9: Pushed
+8880b15efea4: Pushed
+eee371b9ce3f: Mounted from library/node
+7264a8db6415: Mounted from library/node
+d7aa67aeab30: Pushed
+93b3025fe103: Mounted from library/node
+dashboard_ui: digest: sha256:abc326b5d5b876132c9baa64a19b28f08cdbd2ec65b42a9aa51d3b8b7c3dd57c size: 1863
+root@u26:~# docker push ksasha15/otus:documents_api
+The push refers to repository [docker.io/ksasha15/otus]
+b181b62af144: Pushed
+7fe29eb4eb70: Pushed
+84f5eff04246: Mounted from library/node
+d71a4048a969: Mounted from library/node
+75cfe5105822: Mounted from library/node
+1debc72441db: Mounted from library/node
+c60784f82b08: Pushed
+documents_api: digest: sha256:4a486c0f0ee135b36baacbbbb2cfc943a8f68ba0c1bddef6b074b99f8c137a84 size: 1837
+root@u26:~# docker push ksasha15/otus:users_api
+The push refers to repository [docker.io/ksasha15/otus]
+c60784f82b08: Layer already exists
+1bb7dd8cab56: Pushed
+75cfe5105822: Layer already exists
+1debc72441db: Layer already exists
+302639d0081e: Pushed
+84f5eff04246: Layer already exists
+d71a4048a969: Layer already exists
+users_api: digest: sha256:24eb8128599d56093c11106e5f675936c56df214d2e336f514996dcf943b3208 size: 1837
+root@u26:~#
+
 ```
